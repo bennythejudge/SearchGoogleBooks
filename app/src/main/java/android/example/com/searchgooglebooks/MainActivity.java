@@ -46,7 +46,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
-        return null;
+        // create a new loader for the given URL
+        Log.d("onCreateLoader", "entering method");
+        String sUrl = "";
+        Log.d("onCreateLoader", "sUrl: " + sUrl);
+
+        // call the API
+        return new BookLoader(this, sUrl);
     }
 
     @Override

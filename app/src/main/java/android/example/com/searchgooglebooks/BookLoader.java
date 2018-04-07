@@ -11,6 +11,9 @@ import java.util.List;
 
 public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
+    /** Tag for log messages */
+    private static final String LOG_TAG = BookLoader.class.getName();
+
     private String mUrl;
 
 
@@ -19,6 +22,10 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
         mUrl = url;
     }
 
+    // in the quakereport example it does this - what's the difference?
+    //    protected void onStartLoading() {
+    //        forceLoad();
+    //    }
 
     @Override
     protected void onStartLoading() {
@@ -27,6 +34,11 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
     @Override
     public List<Book> loadInBackground() {
-        return null;
+        if (mUrl == null) {
+            return null;
+        }
+        // Perform the network request, parse the response, and extract a list of earthquakes.
+        List<Book> books = QueryUtils.fetchBooksData(mUrl);
+        return books;
     }
 }
