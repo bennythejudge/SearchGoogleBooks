@@ -22,6 +22,10 @@
             android:layout_height="wrap_content"
             android:text="Search" />
     </RelativeLayout>
+
+
+    <!-- qua dentro ci va la list view -->
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,10 +46,16 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
     </android.support.v7.widget.CardView>
-    <ProgressBar
-        android:id="@+id/prog_bar"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content" />
+<TextView
+    android:id="@+id/empty_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:textAppearance="?android:textAppearanceMedium" />
+<ProgressBar
+    android:id="@+id/prog_bar"
+    style="@style/Widget.AppCompat.ProgressBar"
+    android:layout_width="wrap_content"
+    android:layout_centerInParent="true"
+    android:layout_height="wrap_content" />
 </RelativeLayout>

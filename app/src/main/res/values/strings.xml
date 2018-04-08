@@ -2,4 +2,5 @@
     <string name="app_name">SearchGoogleBooks</string>
     <string name="search_subject">Enter search terms</string>
     <string name="search_button">Search</string>
+    <string name="no_books">I couldn\'t find any book (or, more likely, this app is crap!)</string>
 </resources>

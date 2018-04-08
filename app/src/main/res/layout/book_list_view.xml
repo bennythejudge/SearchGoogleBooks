@@ -1,0 +1,15 @@
+
+
+
+<!-- questa e' una list view ma probabilmente va dentro una card o simile nella main activity view (activity_main.xml) -->
+
+
+
+
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@null"
+    android:dividerHeight="0dp"/>

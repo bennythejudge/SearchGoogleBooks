@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public class Book {
     private String mTitle;
-    private ArrayList<String> mAuthors;
+    private String mAuthor;
     private String mImageUrl;
 
-    private Book(String title, ArrayList<String> authors, String imageUrl) {
+    public Book(String title, String author, String imageUrl) {
         mTitle = title;
-        mAuthors = authors;
+        mAuthor = author;
         mImageUrl = imageUrl;
     }
 }

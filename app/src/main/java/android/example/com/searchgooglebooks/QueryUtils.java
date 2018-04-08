@@ -45,7 +45,7 @@ public class QueryUtils {
             Log.e(LOG_TAG, "Error making the HTTP request.", e);
         }
 
-        Log.d("fetchBooksData", "jsonResponse: " + jsonResponse);
+        Log.d(LOG_TAG, "jsonResponse: " + jsonResponse);
 
         // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
         List<Book> books = extractBooks(jsonResponse);
@@ -76,22 +76,24 @@ public class QueryUtils {
 
         // If the URL is null, then return early.
         if (url == null) {
+            Log.e("makeHttpRequest", "ERROR: url is null!");
             return jsonResponse;
         }
 
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
         try {
+            Log.e("makeHttpRequest", "doing urlconnection");
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(1000 /* milliseconds */);
+            urlConnection.setConnectTimeout(3000 /* milliseconds */);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
             if (urlConnection.getResponseCode() == 200) {
-                Log.d("makeHttpRequest", "HTTP GET successful!");
+                Log.d(LOG_TAG, "HTTP GET successful!");
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
@@ -99,6 +101,7 @@ public class QueryUtils {
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error retrieving the book search JSON results.", e);
+            throw e;
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -131,7 +134,9 @@ public class QueryUtils {
      */
     public static ArrayList<Book> extractBooks(String response) {
 
-        Log.d("extractBooks", "response: " + response);
+        String authors;
+
+        Log.d(LOG_TAG, "response: " + response);
 
         // Create an empty ArrayList that we can start adding earthquakes to
         ArrayList<Book> books = new ArrayList<>();
@@ -156,7 +161,7 @@ public class QueryUtils {
             */
             // convert string into a JSON object
             JSONObject jsonObj = new JSONObject(response);
-            Log.d("extractBooks", "converted string to JSON - passed");
+            Log.d(LOG_TAG, "converted string to JSON - passed");
             JSONArray json_aBooks = jsonObj.getJSONArray("items");
             Log.d("extractBooks",
                     "extracted the array of books from the JSON - entering loop");
@@ -164,8 +169,17 @@ public class QueryUtils {
                 JSONObject c = json_aBooks.getJSONObject(i);
                 Log.d("extractBooks",
                         "examining item " + String.valueOf(i) + " of the array");
-//                JSONObject p = c.getJSONObject("properties");
-//                //Log.v("EarthQuake", String.valueOf(p));
+                String kind = c.getString("kind");
+                Log.d("extractBooks",
+                        "kind: " + kind);
+                JSONObject volumeInfo = c.getJSONObject("volumeInfo");
+                String title = volumeInfo.getString("title");
+                int n = volumeInfo.getJSONArray("authors").length();
+                if (n > 1) {
+                    authors = "Multiple authors";
+                } else {
+                    authors = "Extract me from the JSON";
+                }
 //                double mag = p.getDouble("mag");
 //                String location = p.getString("place");
 //                Long time = p.getLong("time");
@@ -176,7 +190,7 @@ public class QueryUtils {
 //                // extract the URL
 //                String url = p.getString("url");
 ////                Log.d("QueryUtils", "url: " + url);
-//                earthquakes.add(new EarthQuake(mag, location, time, url));
+                books.add(new Book(title, authors, ""));
             }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
