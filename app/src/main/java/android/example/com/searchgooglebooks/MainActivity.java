@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity
     public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
         // create a new loader for the given URL
         Log.d("onCreateLoader", "entering method");
-        String sUrl = "";
+        // this is only temporary
+        String sUrl = "https://www.googleapis.com/books/v1/volumes?q=inauthor:benedetto%20lo%20giudice";
         Log.d("onCreateLoader", "sUrl: " + sUrl);
 
         // call the API
@@ -57,11 +58,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> bookList) {
-
+        Log.d("onLoadFinished", "entering and exiting");
+        // here i need to switch view and show the results
     }
 
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
-
+        Log.d("onLoaderReset", "entering and exiting");
     }
 }

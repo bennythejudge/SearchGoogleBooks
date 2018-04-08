@@ -45,6 +45,8 @@ public class QueryUtils {
             Log.e(LOG_TAG, "Error making the HTTP request.", e);
         }
 
+        Log.d("fetchBooksData", "jsonResponse: " + jsonResponse);
+
         // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
         List<Book> books = extractBooks(jsonResponse);
 
@@ -65,7 +67,12 @@ public class QueryUtils {
         return url;
     }
     private static String makeHttpRequest(URL url) throws IOException {
+
+        Log.d("makeHttpRequest", "entering the method");
+
+
         String jsonResponse = "";
+
 
         // If the URL is null, then return early.
         if (url == null) {
@@ -84,6 +91,7 @@ public class QueryUtils {
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
             if (urlConnection.getResponseCode() == 200) {
+                Log.d("makeHttpRequest", "HTTP GET successful!");
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
@@ -123,7 +131,7 @@ public class QueryUtils {
      */
     public static ArrayList<Book> extractBooks(String response) {
 
-        Log.d("extractEarthquakes", "response: " + response);
+        Log.d("extractBooks", "response: " + response);
 
         // Create an empty ArrayList that we can start adding earthquakes to
         ArrayList<Book> books = new ArrayList<>();
@@ -146,10 +154,16 @@ public class QueryUtils {
             Create Earthquake java object from magnitude, location, and time
             Add earthquake to list of earthquakes
             */
+            // convert string into a JSON object
             JSONObject jsonObj = new JSONObject(response);
-//            JSONArray features = jsonObj.getJSONArray("features");
-//            for (int i=0; i<features.length(); i++) {
-//                JSONObject c = features.getJSONObject(i);
+            Log.d("extractBooks", "converted string to JSON - passed");
+            JSONArray json_aBooks = jsonObj.getJSONArray("items");
+            Log.d("extractBooks",
+                    "extracted the array of books from the JSON - entering loop");
+            for (int i=0; i<json_aBooks.length(); i++) {
+                JSONObject c = json_aBooks.getJSONObject(i);
+                Log.d("extractBooks",
+                        "examining item " + String.valueOf(i) + " of the array");
 //                JSONObject p = c.getJSONObject("properties");
 //                //Log.v("EarthQuake", String.valueOf(p));
 //                double mag = p.getDouble("mag");
@@ -163,7 +177,7 @@ public class QueryUtils {
 //                String url = p.getString("url");
 ////                Log.d("QueryUtils", "url: " + url);
 //                earthquakes.add(new EarthQuake(mag, location, time, url));
-//            }
+            }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
