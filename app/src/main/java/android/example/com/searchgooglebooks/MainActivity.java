@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     private EditText search_term;
     private Context topContext;
     private static int run = 0;
-    private ProgressBar mProgBar;
+//    private ProgressBar mProgBar;
     private BookAdapter mAdapter;
     private TextView mEmptyStateTextView;
     private ListView bookListView;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         Log.d("onCreate", "entering");
 
         setContentView(R.layout.activity_main);
-        mProgBar = (ProgressBar) findViewById(R.id.prog_bar);
+//        mProgBar = (ProgressBar) findViewById(R.id.prog_bar);
         search_term = findViewById(R.id.search_term);
         searchBtn = findViewById(R.id.search_button);
         topContext = this;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
                 Log.d("setOnClickListener", "run: " + String.valueOf(run));
                 search_term = findViewById(R.id.search_term);
                 Log.d("onclicklistener", "someone clicked me: " + search_term.getText());
-                mProgBar.setVisibility(View.VISIBLE);
+//                mProgBar.setVisibility(View.VISIBLE);
                 LoaderManager loaderManager = getLoaderManager();
                 loaderManager.initLoader(BOOKS_LOADER_ID, null,
                             (LoaderManager.LoaderCallbacks<Object>) topContext);
@@ -73,8 +73,9 @@ public class MainActivity extends AppCompatActivity
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> bookList) {
         // here i need to switch view and show the results
         // hide the progress bar
-        mProgBar.setVisibility(View.INVISIBLE);
+//        mProgBar.setVisibility(View.INVISIBLE);
         Log.d("onLoadFinished", "content of the list: " + bookList.toString());
+        ShowBooks(bookList);
         // here update the UI this is called when the loader has finished loading
 //        if (mAdapter != null) {
 //            mAdapter.clear();
@@ -93,5 +94,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
         Log.d("onLoaderReset", "entering and exiting");
+    }
+
+    private void ShowBooks(List<Book> books) {
+        Log.d("ShowBooks", "here now");
     }
 }
