@@ -64,6 +64,7 @@ public class QueryUtils {
         } catch (MalformedURLException e) {
             Log.e(LOG_TAG, "Error building the URL ", e);
         }
+        Log.d("createUrl", "the url: " + url);
         return url;
     }
     private static String makeHttpRequest(URL url) throws IOException {
