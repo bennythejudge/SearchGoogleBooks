@@ -16,4 +16,7 @@ public class Book {
         mAuthor = author;
         mImageUrl = imageUrl;
     }
+
+    public String getTitle() { return mTitle; }
+    public String getAuthors() { return mAuthor; }
 }

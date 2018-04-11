@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -104,7 +105,9 @@ public class MainActivity extends AppCompatActivity
 
     private void ShowBooks(List<Book> books) {
         Log.d("ShowBooks", "here now");
-        TextView tvBooks = findViewById(R.id.books);
-        tvBooks.setText("CAZZO!!!!");
+        bookListView = findViewById(R.id.list);
+        mAdapter = new BookAdapter(topContext, new ArrayList<Book>());
+        bookListView.setAdapter(mAdapter);
+        mAdapter.addAll(books);
     }
 }
