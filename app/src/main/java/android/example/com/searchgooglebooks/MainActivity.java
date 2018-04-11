@@ -83,19 +83,6 @@ public class MainActivity extends AppCompatActivity
 //        mProgBar.setVisibility(View.INVISIBLE);
         Log.d("onLoadFinished", "content of the list: " + bookList.toString());
         ShowBooks(bookList);
-        // here update the UI this is called when the loader has finished loading
-//        if (mAdapter != null) {
-//            mAdapter.clear();
-//        } else {
-//            Log.d("onLoadFinished", "mAdapter is null!!!!!!!!");
-//        }
-//        Log.d("onLoadFinished", "now update the UI with: " + bookList);
-//        if (bookList != null && ! bookList.isEmpty()) {
-//            mAdapter.addAll(bookList);
-//        } else {
-//            mProgBar.setVisibility(View.INVISIBLE);
-//            mEmptyStateTextView.setText(R.string.no_books);
-//        }
     }
 
     @Override
@@ -104,8 +91,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void ShowBooks(List<Book> books) {
-        Log.d("ShowBooks", "here now");
+        Log.d("ShowBooks", "here now books.size(): " + books.size());
         bookListView = findViewById(R.id.list);
+
         mAdapter = new BookAdapter(topContext, new ArrayList<Book>());
         bookListView.setAdapter(mAdapter);
         mAdapter.addAll(books);
