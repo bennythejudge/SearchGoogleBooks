@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -82,6 +83,10 @@ public class MainActivity extends AppCompatActivity
         // hide the progress bar
 //        mProgBar.setVisibility(View.INVISIBLE);
         Log.d("onLoadFinished", "content of the list: " + bookList.toString());
+        Toast.makeText(topContext,
+                "I found " + bookList.size() + " books",
+                Toast.LENGTH_SHORT)
+        .show();
         ShowBooks(bookList);
     }
 

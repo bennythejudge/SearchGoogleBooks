@@ -14,7 +14,7 @@
             android:id="@+id/search_term"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter search term" />
+            android:hint="Search authors" />
         <Button
             android:id="@+id/search_button"
             android:layout_below="@id/search_term"
