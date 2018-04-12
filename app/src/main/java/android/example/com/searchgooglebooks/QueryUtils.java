@@ -179,19 +179,11 @@ public class QueryUtils {
                 if (n > 1) {
                     authors = "Multiple authors";
                 } else {
-                    authors = "Extract me from the JSON";
+                    JSONArray json_authors = volumeInfo.getJSONArray("authors");
+                    authors = json_authors.getString(0);
                 }
-//                double mag = p.getDouble("mag");
-//                String location = p.getString("place");
-//                Long time = p.getLong("time");
-////                Log.v("EQ", "mag: " + mag + " place: " + location + " time: " + time);
-//                // convert time to long and convert then to Date format
-//                // no longer need to convert as I can extract from json as long
-//                // Date date = new Date(Long.parseLong(time));
-//                // extract the URL
-//                String url = p.getString("url");
-////                Log.d("QueryUtils", "url: " + url);
-                books.add(new Book(title, authors, ""));
+                String url = volumeInfo.getString("canonicalVolumeLink");
+                books.add(new Book(title, authors, "", url));
             }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,

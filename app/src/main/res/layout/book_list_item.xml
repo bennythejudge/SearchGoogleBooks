@@ -50,6 +50,13 @@
             android:maxLines="2"
             tools:text="authors or multiple authores" />
 
+        <TextView
+            android:id="@+id/url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            tools:text="link to book" />
     </LinearLayout>
             android:textSize="16sp"
 
