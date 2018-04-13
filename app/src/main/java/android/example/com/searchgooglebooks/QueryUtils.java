@@ -30,8 +30,6 @@ public class QueryUtils {
     }
 
     public static List<Book> fetchBooksData(String requestUrl) {
-
-
         Log.d("fetchBooksData", "Entering method");
 
         // Create URL object

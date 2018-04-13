@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 // hide the keyboard
+                if (mAdapter != null) {
+                    mAdapter.clear();
+                }
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(search_term.getWindowToken(), 0);
 
@@ -62,6 +65,14 @@ public class MainActivity extends AppCompatActivity
                             (LoaderManager.LoaderCallbacks<Object>) topContext);
             }
         });
+    }
+
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+        if (mAdapter != null) {
+            mAdapter.clear();
+        }
     }
 
     @Override
@@ -93,12 +104,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoaderReset(Loader<List<Book>> loader) {
         Log.d("onLoaderReset", "entering and exiting");
+        mAdapter.clear();
     }
 
     private void ShowBooks(List<Book> books) {
         Log.d("ShowBooks", "here now books.size(): " + books.size());
         bookListView = findViewById(R.id.list);
-
         mAdapter = new BookAdapter(topContext, new ArrayList<Book>());
         bookListView.setAdapter(mAdapter);
         mAdapter.addAll(books);
