@@ -24,6 +24,8 @@ import java.util.List;
 public class QueryUtils {
 
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
+    private static String jsonResponse = null;
+
 
     private QueryUtils() {
         // empty constructor
@@ -36,7 +38,6 @@ public class QueryUtils {
         URL url = createUrl(requestUrl);
 
         // Perform HTTP request to the URL and receive a JSON response back
-        String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
@@ -127,6 +128,7 @@ public class QueryUtils {
         }
         return output.toString();
     }
+
     /**
      * Return a list of {@link Book} objects that has been built up from
      * parsing a JSON response.
@@ -161,6 +163,7 @@ public class QueryUtils {
             // convert string into a JSON object
             JSONObject jsonObj = new JSONObject(response);
             Log.d(LOG_TAG, "converted string to JSON - passed");
+            int totalItems = jsonObj.getInt("totalItems");
             JSONArray json_aBooks = jsonObj.getJSONArray("items");
             Log.d("extractBooks",
                     "extracted the array of books from the JSON - entering loop");

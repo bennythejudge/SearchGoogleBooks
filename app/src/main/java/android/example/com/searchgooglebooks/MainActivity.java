@@ -4,11 +4,13 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,7 +84,8 @@ public class MainActivity extends AppCompatActivity
         // this is only temporary
         String searchTerm = String.valueOf(search_term.getText());
         String sUrl = "https://www.googleapis.com/books/v1/volumes?q=inauthor:" +
-                URLEncoder.encode(searchTerm);
+                URLEncoder.encode(searchTerm) +
+                "&startIndex=0&maxResults=40";
         Log.d("onCreateLoader", "sUrl: " + sUrl);
         // call the API
         return new BookLoader(this, sUrl);
@@ -112,6 +115,22 @@ public class MainActivity extends AppCompatActivity
         bookListView = findViewById(R.id.list);
         mAdapter = new BookAdapter(topContext, new ArrayList<Book>());
         bookListView.setAdapter(mAdapter);
+        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // when clicked send create intent to open url
+                Book currentBook = mAdapter.getItem(position);
+
+                String url = currentBook.getUrl();
+                Toast.makeText(getApplicationContext(),
+                        "intent at " + url,
+                        Toast.LENGTH_LONG).show();
+                Intent openUrlIntent = new Intent(Intent.ACTION_VIEW);
+                openUrlIntent.setData(Uri.parse(url));
+                startActivity(openUrlIntent);
+            }
+        });
+
         mAdapter.addAll(books);
     }
 }

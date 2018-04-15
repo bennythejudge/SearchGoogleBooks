@@ -21,4 +21,5 @@ public class Book {
 
     public String getTitle() { return mTitle; }
     public String getAuthors() { return mAuthor; }
+    public String getUrl() { return mUrl; }
 }
